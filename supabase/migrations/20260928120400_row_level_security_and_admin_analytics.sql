@@ -282,7 +282,7 @@ create policy "Editors can manage monthly documents"
   with check ((select public.has_editor_access()));
 
 -- Event insertion is intentionally reserved for trusted server code using the
--- service-role key. This prevents clients from fabricating dashboard metrics.
+-- Supabase secret key (service_role). This prevents clients from fabricating dashboard metrics.
 create policy "Admins can view activity events"
   on public.activity_events for select to authenticated
   using ((select public.has_role('admin'::public.app_role)));

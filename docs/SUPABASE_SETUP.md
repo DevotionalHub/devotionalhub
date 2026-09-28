@@ -34,7 +34,7 @@ npm run backend:lint
 npm run backend:types
 ```
 
-`backend:start` prints the local API URL, Studio URL, anonymous key, and service-role key. Put local values in `.env.local`, never in `.env.example` or a committed file.
+`backend:start` prints the local API URL, Studio URL, publishable key, and secret key. Put local values in `.env.local`, never in `.env.example` or a committed file.
 
 Open local Supabase Studio at `http://127.0.0.1:54323`.
 
@@ -80,6 +80,16 @@ npm run backend:stop
 
 The CLI may request the database password interactively. Do not put it in a shell script or committed file.
 
+### Beginner dashboard setup (one time)
+
+If you are not using a local terminal yet, generate the one-time setup file with:
+
+```bash
+npm run backend:bootstrap-file
+```
+
+Then open **Supabase Dashboard -> SQL Editor -> New query**, paste the complete contents of `supabase/bootstrap.sql`, and click **Run**. The script runs in a transaction and records all three migration versions so later CLI pushes stay synchronized. Do not run the bootstrap file again after it succeeds; use new migration files for future changes.
+
 ## 4. Configure application environment variables
 
 Copy the example file:
@@ -92,11 +102,11 @@ Find API values in **Supabase Dashboard -> Project Settings -> API**.
 
 ```dotenv
 NEXT_PUBLIC_SUPABASE_URL=https://YOUR_PROJECT_REF.supabase.co
-NEXT_PUBLIC_SUPABASE_ANON_KEY=YOUR_BROWSER_SAFE_KEY
-SUPABASE_SERVICE_ROLE_KEY=YOUR_SERVER_ONLY_KEY
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=sb_publishable_YOUR_BROWSER_SAFE_KEY
+SUPABASE_SECRET_KEY=sb_secret_YOUR_SERVER_ONLY_KEY
 ```
 
-The service-role key bypasses row-level security. It must only be read by trusted server routes and must never use a `NEXT_PUBLIC_` prefix.
+The secret key bypasses row-level security. It must only be read by trusted server routes and must never use a `NEXT_PUBLIC_` prefix.
 
 ## 5. Configure Authentication
 
@@ -154,7 +164,7 @@ Do not make the bucket public: direct public URLs would bypass download counting
 
 `activity_events` stores only an event type, random session UUID, optional authenticated user ID, related record IDs, small metadata, and time. It deliberately does not store emails, IP addresses, prayer text, or journal entries.
 
-Only trusted server code can insert events. The browser must call an application API route; it must never receive the service-role key. Supported events are:
+Only trusted server code can insert events. The browser must call an application API route; it must never receive the secret key. Supported events are:
 
 - `devotional_view`
 - `devotional_complete`

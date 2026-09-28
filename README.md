@@ -34,8 +34,11 @@ Supabase Studio is available locally at `http://127.0.0.1:54323` after the stack
 ```text
 supabase/
   config.toml           Local Supabase configuration
+  bootstrap.sql         One-time dashboard setup bundle
   migrations/           Database schema, RLS, analytics, and Storage policies
   seed.sql               Rights-safe lookup and development seed data
+scripts/
+  build-bootstrap.mjs   Regenerates the dashboard setup bundle
 types/
   database.types.ts     Generated Supabase TypeScript types
 docs/
@@ -44,4 +47,4 @@ docs/
 
 ## Security
 
-Copy `.env.example` to `.env.local` and keep all real keys out of Git. The Supabase service-role key is server-only and must never be referenced by browser code.
+Copy `.env.example` to `.env.local` and keep all real keys out of Git. The Supabase secret key is server-only and must never be referenced by browser code.

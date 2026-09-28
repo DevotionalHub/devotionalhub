@@ -9,6 +9,7 @@
     "backend:reset": "supabase db reset",
     "backend:lint": "supabase db lint --local --fail-on warning",
     "backend:push": "supabase db push",
+    "backend:bootstrap-file": "node scripts/build-bootstrap.mjs",
     "backend:types": "supabase gen types typescript --local > types/database.types.ts",
     "backend:types:linked": "supabase gen types typescript --linked > types/database.types.ts"
   },
