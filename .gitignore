@@ -14,6 +14,7 @@ node_modules/
 out/
 dist/
 coverage/
+*.tsbuildinfo
 
 # Editors and operating systems
 .DS_Store

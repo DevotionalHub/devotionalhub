@@ -21,7 +21,16 @@ See [Supabase backend setup](docs/SUPABASE_SETUP.md) for local development and h
 
 ```bash
 npm install
-npm run backend:start   # requires Docker
+cp .env.example .env.local
+npm run dev
+```
+
+The web app runs at `http://localhost:3000`. Available routes include the landing page, registration, login, password recovery, and the protected `/today` reader page.
+
+For local Supabase development with Docker:
+
+```bash
+npm run backend:start
 npm run backend:reset
 npm run backend:lint
 npm run backend:types
@@ -32,6 +41,9 @@ Supabase Studio is available locally at `http://127.0.0.1:54323` after the stack
 ## Repository layout
 
 ```text
+app/                    Next.js pages and authentication routes
+components/             Shared brand and authentication UI
+lib/supabase/           Browser, server, and session clients
 supabase/
   config.toml           Local Supabase configuration
   bootstrap.sql         One-time dashboard setup bundle
