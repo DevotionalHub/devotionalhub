@@ -12,6 +12,7 @@ import { redirect } from "next/navigation";
 
 import { BrandLogo } from "@/components/brand-logo";
 import { createClient } from "@/lib/supabase/server";
+import { hasSupabaseConfig } from "@/lib/supabase/config";
 
 export const metadata: Metadata = { title: "Today" };
 
@@ -28,6 +29,10 @@ function lagosDate() {
 }
 
 export default async function TodayPage() {
+  if (!hasSupabaseConfig()) {
+    redirect("/login?next=/today");
+  }
+
   const supabase = await createClient();
   const { data: authData } = await supabase.auth.getUser();
 
