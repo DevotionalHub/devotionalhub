@@ -10,6 +10,8 @@ interface AuthShellProps {
   description: string;
   children: ReactNode;
   footer: ReactNode;
+  /** Optional remote logo image used for both the desktop and mobile brand marks. */
+  logoSrc?: string;
 }
 
 export function AuthShell({
@@ -18,6 +20,7 @@ export function AuthShell({
   description,
   children,
   footer,
+  logoSrc,
 }: AuthShellProps) {
   return (
     <main className="auth-page">
@@ -25,7 +28,7 @@ export function AuthShell({
         <div className="auth-story__glow auth-story__glow--one" />
         <div className="auth-story__glow auth-story__glow--two" />
         <div className="auth-story__top">
-          <BrandLogo inverse />
+          <BrandLogo inverse logoSrc={logoSrc} />
           <Link className="auth-back" href="/">
             <ArrowLeft size={16} />
             Back home
@@ -49,7 +52,7 @@ export function AuthShell({
       <section className="auth-panel">
         <div className="auth-panel__inner">
           <div className="auth-mobile-brand">
-            <BrandLogo />
+            <BrandLogo logoSrc={logoSrc} />
             <Link href="/" aria-label="Back home">
               <ArrowLeft size={18} />
             </Link>
