@@ -64,7 +64,7 @@ input:focus-visible {
 }
 
 .shell {
-  width: min(1180px, calc(100% - 48px));
+  width: min(1280px, calc(100% - 64px));
   margin-inline: auto;
 }
 
@@ -1480,6 +1480,37 @@ input:focus-visible {
   color: #71817b;
   font-size: 12px;
   line-height: 1.6;
+}
+
+/* Large desktop / wide screens — use more of the viewport */
+@media (min-width: 1440px) {
+  .shell {
+    width: min(1360px, calc(100% - 96px));
+  }
+
+  .hero {
+    min-height: 760px;
+    gap: 110px;
+  }
+
+  .scripture {
+    gap: 90px;
+    padding-block: 130px;
+  }
+
+  .features {
+    padding-block: 140px;
+  }
+
+  .hymns {
+    padding-block: 130px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .shell {
+    width: min(1500px, calc(100% - 120px));
+  }
 }
 
 @media (max-width: 1050px) {
