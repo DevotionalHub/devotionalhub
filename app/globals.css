@@ -159,6 +159,17 @@ input:focus-visible {
   background: var(--cream);
 }
 
+.button--outline-light {
+  color: #f7f4ea;
+  border-color: rgba(247, 244, 234, 0.45);
+  background: transparent;
+}
+
+.button--outline-light:hover {
+  border-color: #f7f4ea;
+  background: rgba(255, 255, 255, 0.08);
+}
+
 .button--small {
   min-height: 42px;
   padding-inline: 18px;
@@ -170,12 +181,19 @@ input:focus-visible {
 }
 
 .eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
   margin: 0 0 10px;
   color: #99723d;
   font-size: 12px;
   font-weight: 700;
   letter-spacing: 0.14em;
   text-transform: uppercase;
+}
+
+.eyebrow svg {
+  color: var(--gold);
 }
 
 .eyebrow--light {
