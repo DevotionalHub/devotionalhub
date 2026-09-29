@@ -83,6 +83,14 @@ input:focus-visible {
   color: #fffdf7;
 }
 
+.brand-logo__image {
+  width: 38px;
+  height: 38px;
+  object-fit: cover;
+  border-radius: 12px 12px 12px 4px;
+  background: var(--cream);
+}
+
 .brand-logo__mark {
   position: relative;
   display: grid;
