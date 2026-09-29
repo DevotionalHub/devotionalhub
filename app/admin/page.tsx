@@ -1,0 +1,14 @@
+import { BarChart3, BookOpen, FilePlus2, HeartHandshake, Library, Music4, Plus, Settings2 } from "lucide-react";
+import Link from "next/link";
+
+import { BrandLogo } from "@/components/brand-logo";
+
+const queue = [
+  { title: "Breath for the weary places", date: "29 Sep 2026", status: "Published" },
+  { title: "When the path is hidden", date: "30 Sep 2026", status: "Draft" },
+  { title: "A faithful next step", date: "1 Oct 2026", status: "Needs review" },
+];
+
+export default function AdminPage() {
+  return <main className="admin-page"><header className="admin-header shell"><BrandLogo /><div className="admin-header__right"><span className="admin-badge">Editorial workspace</span><Link href="/today">View reader site</Link></div></header><div className="admin-shell shell"><div className="admin-welcome"><div><p className="eyebrow">Tuesday, 29 September 2026</p><h1>Good morning, editor.</h1><p>Shape the next quiet moment in someone&apos;s day.</p></div><Link className="button button--primary" href="/admin/devotionals/new"><Plus size={18} /> New devotional</Link></div><div className="admin-stats"><div><FilePlus2 /><strong>12</strong><span>Devotionals this month</span></div><div><BookOpen /><strong>8</strong><span>Ready to publish</span></div><div><HeartHandshake /><strong>246</strong><span>Prayer completions</span></div><div><BarChart3 /><strong>68%</strong><span>30-day read rate</span></div></div><div className="admin-grid"><section className="admin-panel"><div className="panel-heading"><div><p className="eyebrow">Editorial queue</p><h2>Devotionals</h2></div><Link href="/admin/devotionals">View all</Link></div>{queue.map((item) => <div className="queue-row" key={item.title}><div className="queue-icon"><BookOpen size={18} /></div><div><strong>{item.title}</strong><span>{item.date}</span></div><em className={`status status--${item.status.toLowerCase().replace(" ", "-")}`}>{item.status}</em><Link href="/admin/devotionals">Edit</Link></div>)}</section><aside className="admin-panel"><div className="panel-heading"><div><p className="eyebrow">Content library</p><h2>Manage</h2></div><Settings2 size={19} /></div><Link className="manage-link" href="/admin/scripture"><BookOpen /><span><strong>Scripture passages</strong><small>Memory verses and reading text</small></span></Link><Link className="manage-link" href="/admin/hymns"><Music4 /><span><strong>Hymns</strong><small>Public-domain songs and attribution</small></span></Link><Link className="manage-link" href="/admin/prayer-points"><HeartHandshake /><span><strong>Prayer points</strong><small>Guided responses for each day</small></span></Link><Link className="manage-link" href="/admin/reading-plan"><Library /><span><strong>Reading plan</strong><small>Schedule Scripture by date</small></span></Link></aside></div></div></main>;
+}
