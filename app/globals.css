@@ -64,7 +64,7 @@ input:focus-visible {
 }
 
 .shell {
-  width: min(1180px, calc(100% - 48px));
+  width: min(1280px, calc(100% - 64px));
   margin-inline: auto;
 }
 
@@ -819,6 +819,212 @@ input:focus-visible {
   background: var(--gold-pale);
 }
 
+/* Scripture section */
+
+.scripture {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 70px;
+  align-items: center;
+  padding-block: 110px;
+}
+
+.scripture__intro h2 {
+  margin: 18px 0 18px;
+  font-family: var(--font-serif);
+  font-size: clamp(34px, 4.4vw, 52px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+  line-height: 1.06;
+}
+
+.scripture__lede {
+  max-width: 520px;
+  margin: 0 0 30px;
+  color: var(--ink-soft);
+  line-height: 1.75;
+}
+
+.verse-card {
+  position: relative;
+  margin: 0;
+  padding: 54px 48px 40px;
+  color: #f7f4ea;
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 80% 12%, rgba(207, 158, 86, 0.28), transparent 42%),
+    var(--forest-deep);
+  box-shadow: var(--shadow-lg);
+}
+
+.verse-card__mark {
+  color: var(--gold);
+  opacity: 0.85;
+}
+
+.verse-card blockquote {
+  margin: 18px 0 26px;
+  font-family: var(--font-serif);
+  font-size: clamp(24px, 2.6vw, 32px);
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.verse-card figcaption {
+  color: var(--gold-pale);
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+}
+
+.verse-card__foot {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 28px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(240, 222, 192, 0.22);
+  color: #cdd8d1;
+  font-size: 13px;
+}
+
+/* Hymns section */
+
+.hymns {
+  padding-block: 110px;
+  background:
+    radial-gradient(circle at 15% 0%, var(--sage-pale), transparent 45%),
+    var(--cream);
+}
+
+.section-heading--center {
+  max-width: 640px;
+  margin-inline: auto;
+  text-align: center;
+}
+
+.section-heading--center .eyebrow {
+  display: flex;
+  justify-content: center;
+}
+
+.hymn-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.hymn-card {
+  padding: 32px 30px;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--paper);
+  transition: transform 180ms ease, box-shadow 180ms ease, border-color 180ms ease;
+}
+
+.hymn-card:hover {
+  border-color: #c2d0c5;
+  box-shadow: var(--shadow-sm);
+  transform: translateY(-5px);
+}
+
+.hymn-card__icon {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  color: var(--forest);
+  border-radius: 14px 14px 14px 5px;
+  background: var(--sage-pale);
+}
+
+.hymn-card h3 {
+  margin: 22px 0 4px;
+  font-family: var(--font-serif);
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.hymn-card__author {
+  margin: 0 0 18px;
+  color: var(--gold);
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.hymn-card__lines {
+  display: grid;
+  gap: 4px;
+  margin: 0;
+  padding-top: 16px;
+  border-top: 1px solid var(--line);
+  color: var(--ink-soft);
+  font-family: var(--font-serif);
+  font-size: 16px;
+  font-style: italic;
+  line-height: 1.55;
+}
+
+/* Devotional reflection */
+
+.reflection {
+  padding-block: 20px 110px;
+}
+
+.reflection__panel {
+  padding: clamp(36px, 5vw, 68px);
+  border: 1px solid var(--line);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at 90% 8%, var(--sage-pale), transparent 40%),
+    var(--paper);
+  box-shadow: var(--shadow-sm);
+}
+
+.reflection__panel h2 {
+  margin: 16px 0 24px;
+  font-family: var(--font-serif);
+  font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 500;
+  letter-spacing: -0.03em;
+}
+
+.reflection__panel .eyebrow--light {
+  color: var(--gold);
+}
+
+.reflection__text {
+  max-width: 760px;
+}
+
+.reflection__text p {
+  margin: 0 0 18px;
+  color: var(--ink-soft);
+  font-size: 17px;
+  line-height: 1.85;
+}
+
+.reflection__prayer {
+  display: flex;
+  gap: 14px;
+  max-width: 760px;
+  margin-top: 12px;
+  padding: 22px 26px;
+  color: var(--forest);
+  border-left: 3px solid var(--gold);
+  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  background: var(--sage-pale);
+}
+
+.reflection__prayer p {
+  margin: 0;
+  line-height: 1.65;
+}
+
+.reflection__prayer strong {
+  color: var(--forest-deep);
+}
+
 .features {
   padding-block: 120px;
 }
@@ -1482,6 +1688,37 @@ input:focus-visible {
   line-height: 1.6;
 }
 
+/* Large desktop / wide screens — use more of the viewport */
+@media (min-width: 1440px) {
+  .shell {
+    width: min(1360px, calc(100% - 96px));
+  }
+
+  .hero {
+    min-height: 760px;
+    gap: 110px;
+  }
+
+  .scripture {
+    gap: 90px;
+    padding-block: 130px;
+  }
+
+  .features {
+    padding-block: 140px;
+  }
+
+  .hymns {
+    padding-block: 130px;
+  }
+}
+
+@media (min-width: 1800px) {
+  .shell {
+    width: min(1500px, calc(100% - 120px));
+  }
+}
+
 @media (max-width: 1050px) {
   .hero {
     gap: 30px;
@@ -1493,6 +1730,17 @@ input:focus-visible {
 
   .feature-grid {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .scripture {
+    grid-template-columns: 1fr;
+    gap: 44px;
+  }
+
+  .hymn-grid {
+    grid-template-columns: 1fr;
+    max-width: 520px;
+    margin-inline: auto;
   }
 
   .auth-page {
@@ -1519,6 +1767,10 @@ input:focus-visible {
 
   .site-nav > a:not(.button) {
     display: none;
+  }
+
+  .site-nav__signin {
+    display: inline-flex;
   }
 
   .hero {
