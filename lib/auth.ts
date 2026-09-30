@@ -1,3 +1,23 @@
+/**
+ * Absolute base URL used when asking Supabase to redirect back to the site after
+ * email confirmation or password recovery. Prefers the explicit
+ * `NEXT_PUBLIC_SITE_URL` (set this in Netlify to your production domain so links
+ * work no matter where the visitor started), and falls back to the browser's
+ * current origin.
+ */
+export function getRedirectBase() {
+  const configured = process.env.NEXT_PUBLIC_SITE_URL?.trim();
+  if (configured) {
+    return configured.replace(/\/$/, "");
+  }
+
+  if (typeof window !== "undefined") {
+    return window.location.origin;
+  }
+
+  return "";
+}
+
 export function safeNextPath(value: string | undefined, fallback = "/today") {
   if (!value || !value.startsWith("/") || value.startsWith("//")) {
     return fallback;

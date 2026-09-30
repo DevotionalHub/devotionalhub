@@ -17,6 +17,14 @@ The Supabase backend foundation is defined in version-controlled migrations:
 
 See [Supabase backend setup](docs/SUPABASE_SETUP.md) for local development and hosted-project instructions.
 
+## Deployment
+
+The app deploys to Netlify using the Next.js runtime configured in
+`netlify.toml`. Before it works in production you must set the environment
+variables in Netlify and the redirect URLs in Supabase — otherwise confirmation
+emails lead to a "site can't be reached" page and the auth buttons cannot sign
+anyone in. Follow [Netlify deployment](docs/NETLIFY_DEPLOYMENT.md) step by step.
+
 ## Quick start
 
 ```bash

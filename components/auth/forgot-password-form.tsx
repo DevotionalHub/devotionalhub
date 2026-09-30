@@ -4,8 +4,9 @@ import { ArrowRight, LoaderCircle, Mail } from "lucide-react";
 import { FormEvent, useState } from "react";
 
 import { FormMessage } from "@/components/auth/form-message";
-import { friendlyAuthError } from "@/lib/auth";
+import { friendlyAuthError, getRedirectBase } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
+import { SUPABASE_CONFIG_MESSAGE } from "@/lib/supabase/config";
 
 export function ForgotPasswordForm() {
   const [pending, setPending] = useState(false);
@@ -20,22 +21,31 @@ export function ForgotPasswordForm() {
 
     const form = new FormData(event.currentTarget);
     const email = String(form.get("email") ?? "").trim();
-    const supabase = createClient();
-    const { error: resetError } = await supabase.auth.resetPasswordForEmail(
-      email,
-      { redirectTo: `${window.location.origin}/auth/callback?next=/reset-password` },
-    );
+    const form_ = event.currentTarget;
 
-    if (resetError) {
-      setError(friendlyAuthError(resetError.message));
-    } else {
-      setSuccess(
-        "If an account exists for that email, a password reset link is on its way.",
+    try {
+      const supabase = createClient();
+      const { error: resetError } = await supabase.auth.resetPasswordForEmail(
+        email,
+        {
+          redirectTo: `${getRedirectBase()}/auth/callback?next=/reset-password`,
+        },
       );
-      event.currentTarget.reset();
-    }
 
-    setPending(false);
+      if (resetError) {
+        setError(friendlyAuthError(resetError.message));
+      } else {
+        setSuccess(
+          "If an account exists for that email, a password reset link is on its way.",
+        );
+        form_.reset();
+      }
+
+      setPending(false);
+    } catch {
+      setError(SUPABASE_CONFIG_MESSAGE);
+      setPending(false);
+    }
   }
 
   return (

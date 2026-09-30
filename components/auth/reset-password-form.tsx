@@ -8,6 +8,7 @@ import { FormMessage } from "@/components/auth/form-message";
 import { PasswordField } from "@/components/auth/password-field";
 import { friendlyAuthError } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
+import { SUPABASE_CONFIG_MESSAGE } from "@/lib/supabase/config";
 
 export function ResetPasswordForm() {
   const router = useRouter();
@@ -29,17 +30,24 @@ export function ResetPasswordForm() {
       return;
     }
 
-    const supabase = createClient();
-    const { error: updateError } = await supabase.auth.updateUser({ password });
+    try {
+      const supabase = createClient();
+      const { error: updateError } = await supabase.auth.updateUser({
+        password,
+      });
 
-    if (updateError) {
-      setError(friendlyAuthError(updateError.message));
+      if (updateError) {
+        setError(friendlyAuthError(updateError.message));
+        setPending(false);
+        return;
+      }
+
+      router.replace("/login?message=Password updated. You can now sign in.");
+      router.refresh();
+    } catch {
+      setError(SUPABASE_CONFIG_MESSAGE);
       setPending(false);
-      return;
     }
-
-    router.replace("/login?message=Password updated. You can now sign in.");
-    router.refresh();
   }
 
   return (

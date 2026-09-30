@@ -1,0 +1,18 @@
+# Netlify configuration for the DevotionalHub Next.js app.
+#
+# The official Next.js runtime is required so that server features work in
+# production: route handlers (e.g. /auth/callback), the request proxy in
+# proxy.ts, and every server-rendered page (such as /today). Without it these
+# routes 404 and authentication links appear to lead to a page that "can't be
+# reached".
+
+[build]
+  command = "npm run build"
+  publish = ".next"
+
+[build.environment]
+  # Keep the Node.js version consistent with local development.
+  NODE_VERSION = "20"
+
+[[plugins]]
+  package = "@netlify/plugin-nextjs"

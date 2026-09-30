@@ -9,6 +9,7 @@ import { FormMessage } from "@/components/auth/form-message";
 import { PasswordField } from "@/components/auth/password-field";
 import { friendlyAuthError } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
+import { SUPABASE_CONFIG_MESSAGE } from "@/lib/supabase/config";
 
 interface LoginFormProps {
   nextPath: string;
@@ -33,20 +34,26 @@ export function LoginForm({
     const form = new FormData(event.currentTarget);
     const email = String(form.get("email") ?? "").trim();
     const password = String(form.get("password") ?? "");
-    const supabase = createClient();
-    const { error: signInError } = await supabase.auth.signInWithPassword({
-      email,
-      password,
-    });
 
-    if (signInError) {
-      setError(friendlyAuthError(signInError.message));
+    try {
+      const supabase = createClient();
+      const { error: signInError } = await supabase.auth.signInWithPassword({
+        email,
+        password,
+      });
+
+      if (signInError) {
+        setError(friendlyAuthError(signInError.message));
+        setPending(false);
+        return;
+      }
+
+      router.replace(nextPath);
+      router.refresh();
+    } catch {
+      setError(SUPABASE_CONFIG_MESSAGE);
       setPending(false);
-      return;
     }
-
-    router.replace(nextPath);
-    router.refresh();
   }
 
   return (

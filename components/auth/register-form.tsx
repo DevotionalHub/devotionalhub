@@ -6,8 +6,9 @@ import { FormEvent, useState } from "react";
 
 import { FormMessage } from "@/components/auth/form-message";
 import { PasswordField } from "@/components/auth/password-field";
-import { friendlyAuthError } from "@/lib/auth";
+import { friendlyAuthError, getRedirectBase } from "@/lib/auth";
 import { createClient } from "@/lib/supabase/client";
+import { SUPABASE_CONFIG_MESSAGE } from "@/lib/supabase/config";
 
 export function RegisterForm() {
   const router = useRouter();
@@ -33,33 +34,40 @@ export function RegisterForm() {
       return;
     }
 
-    const supabase = createClient();
-    const { data, error: signUpError } = await supabase.auth.signUp({
-      email,
-      password,
-      options: {
-        data: { display_name: displayName },
-        emailRedirectTo: `${window.location.origin}/auth/callback?next=/today`,
-      },
-    });
+    const form_ = event.currentTarget;
 
-    if (signUpError) {
-      setError(friendlyAuthError(signUpError.message));
+    try {
+      const supabase = createClient();
+      const { data, error: signUpError } = await supabase.auth.signUp({
+        email,
+        password,
+        options: {
+          data: { display_name: displayName },
+          emailRedirectTo: `${getRedirectBase()}/auth/callback?next=/today`,
+        },
+      });
+
+      if (signUpError) {
+        setError(friendlyAuthError(signUpError.message));
+        setPending(false);
+        return;
+      }
+
+      if (data.session) {
+        router.replace("/today");
+        router.refresh();
+        return;
+      }
+
+      setSuccess(
+        "Your account has been created. Check your inbox to confirm your email, then sign in.",
+      );
+      form_.reset();
       setPending(false);
-      return;
+    } catch {
+      setError(SUPABASE_CONFIG_MESSAGE);
+      setPending(false);
     }
-
-    if (data.session) {
-      router.replace("/today");
-      router.refresh();
-      return;
-    }
-
-    setSuccess(
-      "Your account has been created. Check your inbox to confirm your email, then sign in.",
-    );
-    event.currentTarget.reset();
-    setPending(false);
   }
 
   return (
